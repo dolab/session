@@ -1,5 +1,7 @@
 # session
 
+[![Build Status](https://travis-ci.org/dolab/session.svg?branch=master)](https://travis-ci.org/dolab/session)
+
 Session manager for golang web application.
 
 ### Howto
