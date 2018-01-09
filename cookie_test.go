@@ -9,7 +9,7 @@ import (
 )
 
 func Test_Cookie(t *testing.T) {
-	value := uuid.NewV4().String()
+	value := uuid.Must(uuid.NewV4()).String()
 
 	cookie := NewCookie(value)
 	assert.Equal(t, value, cookie.Value)

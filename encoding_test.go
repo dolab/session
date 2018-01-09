@@ -8,9 +8,9 @@ import (
 )
 
 func Test_Encoding(t *testing.T) {
-	block := uuid.NewV4().String()
-	key := uuid.NewV4().String()
-	value := uuid.NewV4().String()
+	block := uuid.Must(uuid.NewV4()).String()
+	key := uuid.Must(uuid.NewV4()).String()
+	value := uuid.Must(uuid.NewV4()).String()
 
 	enc := NewEncoding(block, key)
 
