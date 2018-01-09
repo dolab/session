@@ -36,7 +36,7 @@ func Test_Value_Add(t *testing.T) {
 func Test_Value_Set(t *testing.T) {
 	value := NewValue()
 
-	key := uuid.NewV4().String()
+	key := uuid.Must(uuid.NewV4()).String()
 	val := time.Now()
 
 	// should work
