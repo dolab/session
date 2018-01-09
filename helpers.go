@@ -16,7 +16,8 @@ type _Helper struct{}
 
 func (_ *_Helper) NewSessionID() (sid string) {
 	h := md5.New()
-	h.Write(uuid.NewV4().Bytes())
+
+	h.Write(uuid.Must(uuid.NewV4()).Bytes())
 
 	sid = hex.EncodeToString(h.Sum(nil))
 	return
