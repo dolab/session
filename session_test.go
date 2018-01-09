@@ -14,7 +14,7 @@ var (
 		CookieName:   "testingcookie",
 		CookieExpire: 3600, // 1h
 		CookieSecure: false,
-		CookieSecret: uuid.NewV4().String(),
+		CookieSecret: uuid.Must(uuid.NewV4()).String(),
 	}
 
 	provider = NewTestingMemProvider()
@@ -45,7 +45,7 @@ func Test_Session_Start(t *testing.T) {
 	response := httptest.NewRecorder()
 
 	// register cookie with provider
-	tmpsto, _ := provider.New(uuid.NewV4().String())
+	tmpsto, _ := provider.New(uuid.Must(uuid.NewV4()).String())
 	tmpval := tmpsto.GetValue()
 	tmpval.Set("key", "value")
 
@@ -80,7 +80,7 @@ func Test_Session_Refresh(t *testing.T) {
 	response := httptest.NewRecorder()
 
 	// register cookie with provider
-	tmpsto, _ := provider.New(uuid.NewV4().String())
+	tmpsto, _ := provider.New(uuid.Must(uuid.NewV4()).String())
 	tmpval := tmpsto.GetValue()
 	tmpval.Set("key", "value")
 
@@ -123,7 +123,7 @@ func Test_Session_Destroy(t *testing.T) {
 	response := httptest.NewRecorder()
 
 	// register cookie with provider
-	tmpsto, _ := provider.New(uuid.NewV4().String())
+	tmpsto, _ := provider.New(uuid.Must(uuid.NewV4()).String())
 	tmpval := tmpsto.GetValue()
 	tmpval.Set("key", "value")
 

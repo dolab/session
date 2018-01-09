@@ -35,7 +35,7 @@ func Test_Helpers_GetCookie(t *testing.T) {
 	assert.Equal(t, tmpcookie.Value, dupcookie.Value)
 
 	// error when not found
-	tmpcookie, err = Helpers.GetCookie(request.Cookies(), uuid.NewV4().String())
+	tmpcookie, err = Helpers.GetCookie(request.Cookies(), uuid.Must(uuid.NewV4()).String())
 	assert.EqualError(t, ErrNotFound, err.Error())
 	assert.Nil(t, tmpcookie)
 }

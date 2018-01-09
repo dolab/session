@@ -17,7 +17,7 @@ func Test_Value(t *testing.T) {
 func Test_Value_Add(t *testing.T) {
 	value := NewValue()
 
-	key := uuid.NewV4().String()
+	key := uuid.Must(uuid.NewV4()).String()
 	val := time.Now()
 
 	// should work
@@ -54,7 +54,7 @@ func Test_Value_Set(t *testing.T) {
 
 func Test_Value_Get(t *testing.T) {
 	value := NewValue()
-	key := uuid.NewV4().String()
+	key := uuid.Must(uuid.NewV4()).String()
 	val := time.Now()
 
 	value.Add(key, val)
@@ -68,7 +68,7 @@ func Test_Value_Get(t *testing.T) {
 func Test_Value_Unmarshal(t *testing.T) {
 	value := NewValue()
 
-	key := uuid.NewV4().String()
+	key := uuid.Must(uuid.NewV4()).String()
 	val := time.Now()
 
 	value.Add(key, val)
@@ -83,7 +83,7 @@ func Test_Value_Unmarshal(t *testing.T) {
 
 func Test_Value_Del(t *testing.T) {
 	value := NewValue()
-	key := uuid.NewV4().String()
+	key := uuid.Must(uuid.NewV4()).String()
 	val := time.Now()
 
 	value.Add(key, val)
@@ -94,6 +94,6 @@ func Test_Value_Del(t *testing.T) {
 	assert.False(t, value.Has(key))
 
 	// should work even without a key
-	err = value.Del(uuid.NewV4().String())
+	err = value.Del(uuid.Must(uuid.NewV4()).String())
 	assert.Nil(t, err)
 }
