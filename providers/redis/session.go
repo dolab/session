@@ -13,12 +13,10 @@ type _Session struct{}
 var (
 	Session *_Session
 
-	db = 0
-
 	client = redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379", // no password set
 		Password: "",               // use default DB
-		DB:       db,
+		DB:       0,
 	})
 )
 
