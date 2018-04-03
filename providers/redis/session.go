@@ -72,7 +72,6 @@ func (_ *_Session) Restore(sid string) (sto session.Storer, err error) {
 }
 
 func (_ *_Session) Refresh(sid, newsid string) (sto session.Storer, err error) {
-
 	return
 }
 
