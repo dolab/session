@@ -20,8 +20,8 @@ type Provider interface {
 // Storer defines session store apis
 type Storer interface {
 	SessionID() string       // return current session ID
-	SetValue(v *Value) error // set session data
-	GetValue() *Value        // get sesstion data
+	SetValue(v *session.Value) error // set session data
+	GetValue() *session.Value        // get sesstion data
 	Touch() error            // sync session expire time to the provider
 }
 ```
