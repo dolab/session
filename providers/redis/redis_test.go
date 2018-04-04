@@ -1,4 +1,4 @@
-package redis
+package providers
 
 import (
 	"net/http"
@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/dolab/session"
+	"github.com/go-redis/redis"
 	"github.com/golib/assert"
 	uuid "github.com/satori/go.uuid"
 )
@@ -21,18 +22,25 @@ var (
 
 func Test_Session_New(t *testing.T) {
 	assertion := assert.New(t)
-	session := session.New(Session, config)
+
+	client := New(redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	}))
+
+	sess := session.New(client, config)
 
 	request, _ := http.NewRequest("HEAD", "http://example.com", nil)
 	response := httptest.NewRecorder()
 	assertion.Empty(response.HeaderMap)
 
 	// should work
-	sto, err := session.New(response, request)
+	sto, err := sess.New(response, request)
 	assertion.Nil(err)
 	assertion.NotEmpty(response.HeaderMap["Set-Cookie"])
 
-	tmpsto, err := Session.Restore(sto.SessionID())
+	tmpsto, err := client.Restore(sto.SessionID())
 	assertion.Nil(err)
 	assertion.Equal(sto, tmpsto)
 
