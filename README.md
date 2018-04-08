@@ -47,6 +47,64 @@ func (_ *User) Login(ctx *gogo.Context) {
 }
 ```
 
+- use redis provider 
+``` go
+import(
+    providers "github.com/dolab/session/providers/redis"
+    "github.com/go-redis/redis"
+)
+
+func (_ *User) Login(ctx *gogo.Context) {
+    client := redis.NewClient(&redis.Options{
+		Addr:     "localhost:6379",
+		Password: "", // no password set
+		DB:       0,  // use default DB
+	})
+
+    sess := session.New(providers.New(client), config)
+
+    sto, err := sess.Start(ctx.Response, ctx.Request)
+    if err != nil {
+        ctx.SetStatush(http.StatusInternalError)
+        return
+    }
+
+    // do user verification logic
+
+    // save current user to session store
+    sto.GetValue().Set("current_user", user)
+
+    ctx.Return()
+}
+```
+
+- use memcache provider
+``` go
+import(
+    providers "github.com/dolab/session/providers/memcache"
+	"github.com/bradfitz/gomemcache/memcache"
+)
+
+func (_ *User) Login(ctx *gogo.Context) {
+    client := memcache.New("127.0.0.1:11211")
+
+    sess := session.New(providers.New(client), config)
+
+    sto, err := sess.Start(ctx.Response, ctx.Request)
+    if err != nil {
+        ctx.SetStatush(http.StatusInternalError)
+        return
+    }
+
+    // do user verification logic
+
+    // save current user to session store
+    sto.GetValue().Set("current_user", user)
+
+    ctx.Return()
+}
+```
+
 ### Features
 
 - [x] Encrypt cookie value with CFB alg
