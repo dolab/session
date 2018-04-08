@@ -51,7 +51,6 @@ func (_ *User) Login(ctx *gogo.Context) {
 ``` go
 import(
     providers "github.com/dolab/session/providers/redis"
-    
     "github.com/go-redis/redis"
 )
 
@@ -83,7 +82,6 @@ func (_ *User) Login(ctx *gogo.Context) {
 ``` go
 import(
     providers "github.com/dolab/session/providers/memcache"
-
 	"github.com/bradfitz/gomemcache/memcache"
 )
 
