@@ -51,17 +51,18 @@ func (_ *User) Login(ctx *gogo.Context) {
 ``` go
 import(
     providers "github.com/dolab/session/providers/redis"
+    
     "github.com/go-redis/redis"
 )
 
 func (_ *User) Login(ctx *gogo.Context) {
-    pro := providers.New(redis.NewClient(&redis.Options{
+    client := redis.NewClient(&redis.Options{
 		Addr:     "localhost:6379",
 		Password: "", // no password set
 		DB:       0,  // use default DB
-	}))
+	})
 
-    sess := session.New(pro, config)
+    sess := session.New(providers.New(client), config)
 
     sto, err := sess.Start(ctx.Response, ctx.Request)
     if err != nil {
@@ -82,13 +83,14 @@ func (_ *User) Login(ctx *gogo.Context) {
 ``` go
 import(
     providers "github.com/dolab/session/providers/memcache"
+
 	"github.com/bradfitz/gomemcache/memcache"
 )
 
 func (_ *User) Login(ctx *gogo.Context) {
-    pro := providers.New(memcache.New("127.0.0.1:11211"))
+    client := memcache.New("127.0.0.1:11211")
 
-    sess := session.New(pro, config)
+    sess := session.New(providers.New(client), config)
 
     sto, err := sess.Start(ctx.Response, ctx.Request)
     if err != nil {
